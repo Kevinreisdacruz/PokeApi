@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import styles from '../../assets/css/styles';
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Modal, Pressable, FlatList } from 'react-native';
 
 
 interface infosPokemon {
@@ -9,10 +9,6 @@ interface infosPokemon {
     mudaVisibilidade: () => void,
     PokemonSelecionado: String,
 }
-
-
-
-
 
 
 //interface : ele é tipo um molde que define como um objeto deve ser estruturado.
@@ -30,27 +26,27 @@ interface infosPokemon {
 const Pokemon: React.FC<infosPokemon> = (props) => {
 
     // React.FC <infosPokemon> = (props) => { :
-    // meu componente funcional esta recebendo um pros com a estrutura da interface.
+    // meu componente funcional esta recebendo um props com a estrutura da interface.
 
     const [pokemon, setPokemon] = useState([]);
-    
-const fetchDescription = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${props.PokemonSelecionado}/`)
-    .then((response) => response.json())
-    .then((response) => setPokemon(response));
-}
 
-
-
+    const fetchDescription = () => {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${props.PokemonSelecionado}/`)
+        .then((response) => response.json())
+        .then((response) => setPokemon(response));
+    }
 
     // const [caractPoke, setcaractPoke] = useState([])
     // //esta guradando as caracteristicas do pokemon da PokeApi
 
     const [imagemPoke, setImagePoke] = useState()
 
-    // useEffect(() => {
-    //     fetchPokemon()
-    // }, [])
+    useEffect(() => {
+        console.log('carregou')
+        fetchDescription()
+        
+       
+    }, [props.PokemonSelecionado])
 
     //este useEffect: chama o fetchPokemon, para busacr as caracteristicas do pokemon
 
@@ -85,13 +81,15 @@ const fetchDescription = () => {
             //a imagem esta usando a propriedade PokemonSelecionado para mostrar a imagem diante do nome do pokemon.
             />
 
-                <TouchableOpacity onPress={() => fetchDescription()}>
-                    <Text>TESTAR</Text>
-                </TouchableOpacity>
+            <TouchableOpacity onPress={() => fetchDescription()}>
+                <Text>TESTAR</Text>
+            </TouchableOpacity>
             <Text>{props.PokemonSelecionado}</Text>
-            {pokemon.map((details, index) => (
+
+            <Text>{pokemon.height}</Text>
+            {/* {pokemon.map((details, index) => (
                 <Text>{index}</Text>
-            ))}
+            ))} */}
 
             {/* mostra o nome do pokemon selecionado no app.tsx dentro da modal */}
         </Modal>
