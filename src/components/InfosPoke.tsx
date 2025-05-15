@@ -107,44 +107,41 @@ const Pokemon: React.FC<infosPokemon> = (props) => {
     // }
 
 
-
-
-
-
-
     return (
 
         <Modal visible={props.visibleModal}>
             <TouchableOpacity onPress={props.mudaVisibilidade}>
-                <Text>X</Text>
+                <Text style={styles.btnVoltar}>X</Text>
             </TouchableOpacity>
 
             {/* este TouchableOpacity esta fechandao meu modal, passando a minha propriedade mudaVisibilidade que tem seu valor dada como falsa, oq faz ele fechar a modal quando acionada  */}
 
 
-            <Image
-                style={{ width: 150, height: 150 }}
-                source={{
-                    uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${props.PokemonSelecionado}.png`
-                }}
+            <View style={{ alignItems: 'center' }}>
+                <Image
+                    style={{ width: 250, height: 250, }}
+                    source={{
+                        uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${props.PokemonSelecionado}.png`
+                    }}
 
-            //a imagem esta usando a propriedade PokemonSelecionado para mostrar a imagem diante do nome do pokemon.
-            />
+                //a imagem esta usando a propriedade PokemonSelecionado para mostrar a imagem diante do nome do pokemon.
+                />
+            </View>
 
 
+            <View style={{ alignItems: 'center', gap: 10}}>
+                <Text style={styles.nomePoke}> {pokemon?.name}</Text>
+                <Text style={styles.infosPoke}>Altura: {pokemon?.height / 10}</Text>
+                <Text style={styles.infosPoke}>Peso: {pokemon?.weight / 10}</Text>
 
-            <Text style={infosPoke}>Nome: {pokemon?.name}</Text>
-            <Text>Altura: {pokemon?.height / 10}</Text>
-            <Text>Peso: {pokemon?.weight / 10}</Text>
+                {pokemon?.types.map((pokemon) => (
+                    <Text style={styles.infosPoke}>Tipo: {pokemon?.type.name}</Text>
+                ))}
 
-            {pokemon?.types.map((pokemon) => (
-                <Text>Tipos: {pokemon?.type.name}</Text>
-            ))}
-
-            {pokemon?.abilities.map((pokemon) => (
-                <Text>Habilidades: {pokemon?.ability.name}</Text>
-            ))}
-
+                {pokemon?.abilities.map((pokemon) => (
+                    <Text style={styles.infosPoke}>Habilidade: {pokemon?.ability.name}</Text>
+                ))}
+            </View>
 
 
 
