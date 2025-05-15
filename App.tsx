@@ -61,11 +61,13 @@ const App: React.FC = () => {
       <View style={styles.container}>
 
         {pokemons.map((pokemons, numeracao) => {
-          return (
+          return (  
+
+            
 
             <TouchableOpacity style={styles.btn} onPress={() => { setModal(true), setInfosPoke(String(pokemons.name)) }}>
               <Image
-                style={{ width: 150, height: 150 }}
+                style={{ width: 150, height: 150, }}
                 source={{
                   uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${pokemons.name}.png`
                 }}

@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
     },
 
     btn: {
-        width:190, 
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:180, 
         borderWidth:3,
         borderRadius: 15,
         backgroundColor: '#FFCB05'
@@ -26,6 +28,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         color: 'white'
+    }
+
+    infosPoke:{
+         
     }
 
   });

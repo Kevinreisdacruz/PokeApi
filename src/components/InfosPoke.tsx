@@ -10,6 +10,29 @@ interface infosPokemon {
     PokemonSelecionado: String,
 }
 
+interface habilidade {
+    ability: {
+        name: string,
+        url: string,
+    }
+}
+
+interface tipo {
+    slot: string,
+    type: {
+        name: string
+        url: string
+    }
+}
+
+interface pokemon {
+    name: string,
+    height: number,
+    weight: number,
+    types: tipo[],
+    abilities: habilidade[],
+}
+
 
 //interface : ele é tipo um molde que define como um objeto deve ser estruturado.
 
@@ -28,24 +51,45 @@ const Pokemon: React.FC<infosPokemon> = (props) => {
     // React.FC <infosPokemon> = (props) => { :
     // meu componente funcional esta recebendo um props com a estrutura da interface.
 
-    const [pokemon, setPokemon] = useState([]);
+    const [pokemon, setPokemon] = useState<pokemon | null>(null);
 
     const fetchDescription = () => {
         fetch(`https://pokeapi.co/api/v2/pokemon/${props.PokemonSelecionado}/`)
-        .then((response) => response.json())
-        .then((response) => setPokemon(response));
+            .then((response) => response.json())
+            .then((response) => setPokemon({
+                name: response.name,
+                height: response.height,
+                weight: response.weight,
+                types: response.types.map((types: any) => ({
+                    type: {
+                        name: types.type.name,
+                        url: types.type.url,
+                    },
+                })),
+                abilities: response.abilities.map((abilities: any) => ({
+                    ability: {
+                        name: abilities.ability.name,
+                        url: abilities.ability.url
+                    }
+                })),
+            }));
     }
 
-    // const [caractPoke, setcaractPoke] = useState([])
-    // //esta guradando as caracteristicas do pokemon da PokeApi
 
-    const [imagemPoke, setImagePoke] = useState()
+
+
 
     useEffect(() => {
         console.log('carregou')
         fetchDescription()
-        
-       
+
+        if (pokemon?.types && pokemon?.types.length > 0) {
+            pokemon?.types.map((type, index) => (
+                console.log('Returning the array of types ' + type.type.name, index)
+            ));
+        }
+
+
     }, [props.PokemonSelecionado])
 
     //este useEffect: chama o fetchPokemon, para busacr as caracteristicas do pokemon
@@ -61,6 +105,12 @@ const Pokemon: React.FC<infosPokemon> = (props) => {
 
 
     // }
+
+
+
+
+
+
 
     return (
 
@@ -81,15 +131,22 @@ const Pokemon: React.FC<infosPokemon> = (props) => {
             //a imagem esta usando a propriedade PokemonSelecionado para mostrar a imagem diante do nome do pokemon.
             />
 
-            <TouchableOpacity onPress={() => fetchDescription()}>
-                <Text>TESTAR</Text>
-            </TouchableOpacity>
-            <Text>{props.PokemonSelecionado}</Text>
 
-            <Text>{pokemon.height}</Text>
-            {/* {pokemon.map((details, index) => (
-                <Text>{index}</Text>
-            ))} */}
+
+            <Text style={infosPoke}>Nome: {pokemon?.name}</Text>
+            <Text>Altura: {pokemon?.height / 10}</Text>
+            <Text>Peso: {pokemon?.weight / 10}</Text>
+
+            {pokemon?.types.map((pokemon) => (
+                <Text>Tipos: {pokemon?.type.name}</Text>
+            ))}
+
+            {pokemon?.abilities.map((pokemon) => (
+                <Text>Habilidades: {pokemon?.ability.name}</Text>
+            ))}
+
+
+
 
             {/* mostra o nome do pokemon selecionado no app.tsx dentro da modal */}
         </Modal>
