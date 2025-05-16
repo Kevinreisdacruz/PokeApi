@@ -3,20 +3,48 @@ import { useEffect, useState } from 'react';
 import styles from '../../assets/css/styles';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Pokemon from '../components/InfosPoke';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebasecConexao';
+import { autenticacao } from '../firebasecConexao';
+import { User } from '../tipos/User';
+
+
+
+
 
 export const Home: React.FC = () => {
 
     const [pokemons, setPokemons] = useState([])
     const [infosPoke, setInfosPoke] = useState('');
-
-    const [campoPesquisa, setCampoPesquisa] = useState("")
-
-
+    const [campoPesquisa, setCampoPesquisa] = useState('')
     const [modal, setModal] = useState(false)
+    const [printNome, setPrintNome] = useState<User | null> (null)
+
+    async function Document() {
+
+
+        const Ref = doc(db, 'usuario', String(autenticacao.currentUser?.uid));
+        const Snap = await getDoc(Ref).then((response) => {
+            setPrintNome({
+                nome: response.data()?.NomeUsuario
+            })
+    
+        })
+
+        // if (Snap.exists()) {
+
+        //     setPrintNome(Snap.data())
+        //     console.log('doument data:', Snap.data())
+        // } else {
+        //     console.log('documento nao encontrado')
+        // }
+    }
 
     useEffect(() => {
         fetchPokemons()
+        Document()
     }, [])
+
 
     // useEffect(() => {
     //   console.log(infosPoke);
@@ -43,14 +71,14 @@ export const Home: React.FC = () => {
 
 
 
-
         <ScrollView style={styles.root}>
 
             <Pokemon visibleModal={modal} mudaVisibilidade={() => setModal(false)} PokemonSelecionado={infosPoke} />
 
             {/* visibleModal={modal}
-      O que é: Está passando a variável modal como prop chamada visibleModal.
-      oq ele faz: Controla se o modal deve estar visível ou não. Lá no InfosPoke */
+
+                O que é: Está passando a variável modal como prop chamada visibleModal.
+                oq ele faz: Controla se o modal deve estar visível ou não. Lá no InfosPoke */
 
                 // mudaVisibilidade = {() => setModal(false)}
                 // O que é: Está passando uma função como prop chamada mudaVisibilidade.
@@ -62,6 +90,13 @@ export const Home: React.FC = () => {
             }
 
             <View style={styles.container}>
+
+                <Image
+                    style={{width: 350}}
+                    source={require('../../assets/image/PokeApi.png')}
+                />
+
+                {/* <Text>{printNome?.nome}</Text> */}
 
                 {pokemons.map((pokemons, numeracao) => {
                     return (

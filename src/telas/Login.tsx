@@ -8,10 +8,13 @@ import { autenticacao } from "../firebasecConexao";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { db } from "../firebasecConexao";
 import { addDoc, collection, Firestore, setDoc, doc } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
+import { stackProp } from "../rotas/Stack";
 
 
 
 export const Login: React.FC = () => {
+    const navigation = useNavigation<stackProp>()
 
     const [validacao, setValidacao] = useState(0)
 
@@ -21,18 +24,8 @@ export const Login: React.FC = () => {
 
     const [user, setUser] = useState('')
 
-    useEffect(() => {
-        console.log(nome)
-    }, [nome])
-    useEffect(() => {
-        console.log(email)
-    }, [email])
-    useEffect(() => {
-        console.log(senha)
-    }, [senha])
 
     async function criarUsuario() {
-
 
         if (nome != '' && email != '' && senha != '') {
 
@@ -53,9 +46,14 @@ export const Login: React.FC = () => {
                     .then((usuario) => {
                         Alert.alert('cadastro realizado com sucesso')
                         console.log('documento adicionado com sucesso')
+
+                        navigation.navigate('Home')
+
                     }).catch((error) => {
                         console.log(error)
                     })
+
+
 
             } catch (error) {
                 console.log('erro ao criar a conta ou adicionar ao firestore:' + error);
@@ -67,6 +65,7 @@ export const Login: React.FC = () => {
 
 
 
+
     }
 
     async function entrarUsuario() {
@@ -74,39 +73,20 @@ export const Login: React.FC = () => {
             const usuario = await signInWithEmailAndPassword(autenticacao, email, senha)
             setUser(String(usuario.user.email))
 
+            navigation.navigate('Home')
+
         } catch (error) {
             console.log(error)
         }
     }
 
+ 
 
 
-    // useEffect(()=> {
-    //     console.log(email)
-    // }, [email])
-
-
-    // async function Registro() {
-    //     await addDoc(collection(db, 'usuario'), {
-    //         nome: nome,
-    //         email: email,
-    //         senha: senha,
-    //     })
-    //     .then(() =>{
-    //         console.log('CADASTRO REALIZADO COM SUCESSO')
-    //         setNome('')
-    //         setEmail('')
-    //         setSenha('')
-    //     })
-    //     .catch((err) =>{
-    //         console.log(err)
-    //     })
-    // }
 
     return (
         <View style={[styles.root, styles.justifycontentCenter]}>
 
-            <Text>{user}</Text>
 
 
             <View style={{ top: 130, alignItems: 'center', gap: 40 }}>
