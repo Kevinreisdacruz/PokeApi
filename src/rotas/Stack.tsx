@@ -1,8 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StackTipos } from "../tipos/StackTipos";
+import { BottomTabTipos } from "../tipos/BottomTabTipos";
 import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Login } from "../telas/Login";
-import { Home } from "../telas/Home";
+
 
 import { HomeScreen } from "../telas/HomeScreen";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -10,6 +11,8 @@ import { autenticacao } from "../firebasecConexao";
 import { useEffect, useState } from "react";
 
 export type stackProp = NativeStackNavigationProp<StackTipos>
+
+export type bottomTipos = NativeStackNavigationProp<BottomTabTipos>
 
 const StackNav = createNativeStackNavigator<StackTipos>();
 
@@ -38,6 +41,7 @@ export const Stack: React.FC = () => {
                 {verifyUser ? (
 
                     <StackNav.Screen name="Home" component={HomeScreen} />
+                    
                 ) :
                     <StackNav.Screen name="Autenticacao" component={Login} />
 

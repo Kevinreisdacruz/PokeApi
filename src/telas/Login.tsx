@@ -54,7 +54,6 @@ export const Login: React.FC = () => {
                     })
 
 
-
             } catch (error) {
                 console.log('erro ao criar a conta ou adicionar ao firestore:' + error);
             }
@@ -62,8 +61,6 @@ export const Login: React.FC = () => {
         } else {
             console.log('fudeuuuu')
         }
-
-
 
 
     }
@@ -79,10 +76,6 @@ export const Login: React.FC = () => {
             console.log(error)
         }
     }
-
- 
-
-
 
     return (
         <View style={[styles.root, styles.justifycontentCenter]}>
