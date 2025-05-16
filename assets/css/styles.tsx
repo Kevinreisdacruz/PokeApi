@@ -3,7 +3,16 @@ import { StyleSheet, StatusBar } from "react-native";
 
 const styles = StyleSheet.create({
     root: {
+        
         marginTop: StatusBar.currentHeight || 0
+    },
+
+    justifycontentCenter: {
+        justifyContent: 'center'
+    },
+
+    alingItemCenter: {
+        alignItems: 'center'
     },
 
     container: {
@@ -14,7 +23,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
 
- 
+
 
     btn: {
         justifyContent: 'center',
@@ -79,18 +88,32 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        borderWidth: 2,
+        borderWidth: 1,
+        borderRadius: 5,
         width: '80%',
-        
+
     },
 
-    btnConfirmar: {
+    textBtn: {
+        textAlign: 'center',
+        color: 'white'
+    },
+
+    btn1: {
         justifyContent: 'center',
-        backgroundColor: 'red',
-        width: 200,
-        height: 25,
+        backgroundColor: '#FFCB05',
+        width: 250,
+        height: 50,
         borderRadius: 5
-    
+
+    },
+
+    btn2: {
+        justifyContent: 'center',
+        backgroundColor: '#3B4CCA',
+        width: 200,
+        height: 50,
+        borderRadius: 5
     }
 
 
