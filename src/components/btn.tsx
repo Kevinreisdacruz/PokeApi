@@ -7,7 +7,7 @@ interface buttonProps{
     autenticarUsuario?: () => void
 }
 
-export const ButtonConfirmar: React.FC <buttonProps>= (props) => {
+export const ButtonConfirmar: React.FC <buttonProps> = (props) => {
     return (
 
         <>

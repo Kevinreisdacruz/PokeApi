@@ -41,7 +41,7 @@ export const Stack: React.FC = () => {
                 {verifyUser ? (
 
                     <StackNav.Screen name="Home" component={HomeScreen} />
-                    
+
                 ) :
                     <StackNav.Screen name="Autenticacao" component={Login} />
 

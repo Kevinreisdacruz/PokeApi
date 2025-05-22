@@ -81,7 +81,6 @@ export const Login: React.FC = () => {
         <View style={[styles.root, styles.justifycontentCenter]}>
 
 
-
             <View style={{ top: 130, alignItems: 'center', gap: 40 }}>
 
                 <Image
@@ -126,7 +125,7 @@ export const Login: React.FC = () => {
                             inputInfos={(text) => setSenha(text)}
 
                         />
-                        <ButtonConfirmar autenticarUsuario={() => criarUsuario()} BotaoNome="Cadastrar" />
+                        <ButtonConfirmar autenticarUsuario={() => criarUsuario()} BotaoNome="Cadastrar" />  
 
                         <Button2 BotaoNome2="Voltar" Validacao={() => setValidacao(0)} />
 

@@ -7,9 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebasecConexao';
 import { autenticacao } from '../firebasecConexao';
 import { User } from '../tipos/User';
-
-
-
+import { Background } from '@react-navigation/elements';
 
 
 export const Home: React.FC = () => {
@@ -18,7 +16,7 @@ export const Home: React.FC = () => {
     const [infosPoke, setInfosPoke] = useState('');
     const [campoPesquisa, setCampoPesquisa] = useState('')
     const [modal, setModal] = useState(false)
-    const [printNome, setPrintNome] = useState<User | null> (null)
+    const [printNome, setPrintNome] = useState<User | null>(null)
 
     async function Document() {
 
@@ -28,7 +26,7 @@ export const Home: React.FC = () => {
             setPrintNome({
                 nome: response.data()?.NomeUsuario
             })
-    
+
         })
 
         // if (Snap.exists()) {
@@ -92,7 +90,7 @@ export const Home: React.FC = () => {
             <View style={styles.container}>
 
                 <Image
-                    style={{width: 350}}
+                    style={{ width: 350 }}
                     source={require('../../assets/image/PokeApi.png')}
                 />
 
@@ -101,7 +99,12 @@ export const Home: React.FC = () => {
                 {pokemons.map((pokemons, numeracao) => {
                     return (
 
-                        <TouchableOpacity style={styles.btn} onPress={() => { setModal(true), setInfosPoke(String(pokemons.name)) }}>
+                        <TouchableOpacity style={styles.btn} onPress={() => {
+                            setModal(true), setInfosPoke
+                                (String(pokemons.name))
+                        }}>
+
+
                             <Image
                                 style={{ width: 150, height: 150, }}
                                 source={{

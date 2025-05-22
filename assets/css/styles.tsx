@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     btn: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 400,
+        width: 390,
         borderWidth: 3,
         borderRadius: 15,
-        backgroundColor: '#FFCB05'
+        backgroundColor: 'red'
     },
 
     btnVoltar: {
@@ -115,8 +115,6 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 5
     }
-
-
 
 });
 
